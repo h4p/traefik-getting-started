@@ -19,4 +19,11 @@ services:
     # A container that exposes an API to show its IP address
     image: traefik/whoami
     labels:
-      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
+      # /etc/hosts: 127.0.0.1 app-test
+      - "traefik.http.routers.whoami.rule=Host(`app-test`)"
+
+  hello:
+    # A container that answers "Hello World!" on port 8000
+    image: djbasster/hello-react-php
+    labels:
+      - "traefik.http.routers.hello.rule=Path(`/hello`)"
