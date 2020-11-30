@@ -19,19 +19,10 @@ services:
     # A container that exposes an API to show its IP address
     image: traefik/whoami
     labels:
-      # /etc/hosts: 127.0.0.1 app-test
-      - "traefik.http.routers.whoami.rule=Host(`app-test`)"
+      - "traefik.http.routers.whoami.rule=HostRegexp(`{subhost:[a-z]+}.app-test`)"
 
   hello:
     # A container that answers "Hello World!" on port 8000
     image: djbasster/hello-react-php
     labels:
-      - traefik.http.routers.hello.rule=Host(`app-test`) && Path(`/hello`)
-
-  maintenance:
-    image: djbasster/maintenance
-    labels:
-      - traefik.http.routers.maintenance.rule=Host(`app-test`)
-      - traefik.http.routers.maintenance.priority=1
-      - traefik.http.middlewares.maintenance-stripper.stripprefixregex.regex=/.*
-      - traefik.http.routers.maintenance.middlewares=maintenance-stripper@docker
+      - traefik.http.routers.hello.rule=Host(`hello.app-test`)
