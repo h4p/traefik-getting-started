@@ -19,10 +19,14 @@ services:
     # A container that exposes an API to show its IP address
     image: traefik/whoami
     labels:
+      # priority: 39 because rule has 39 characters
       - "traefik.http.routers.whoami.rule=HostRegexp(`{subhost:[a-z]+}.app-test`)"
+      - traefik.http.routers.whoami.priority=10
 
   hello:
     # A container that answers "Hello World!" on port 8000
     image: djbasster/hello-react-php
     labels:
+      # priority: 22 because rule has 22 characters
       - traefik.http.routers.hello.rule=Host(`hello.app-test`)
+      - traefik.http.routers.hello.priority=15
