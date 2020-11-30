@@ -32,4 +32,4 @@ services:
     # A container that answers "Hello World!" on port 8000
     image: djbasster/hello-react-php
     labels:
-      - "traefik.http.routers.hello.rule=Path(`/hello`)"
+      - "traefik.http.routers.hello.rule=Host(`app-test`) && Path(`/hello`)"
